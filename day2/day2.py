@@ -1,15 +1,16 @@
 from functools import reduce
 
 def check_if_valid(policy, password):
-    lower_bound = int(policy.split(" ")[0].split("-")[0])
-    upper_bound = int(policy.split(" ")[0].split("-")[1])
+    lower_index = int(policy.split(" ")[0].split("-")[0])-1
+    upper_index = int(policy.split(" ")[0].split("-")[1])-1
     letter = policy.split(" ")[1]
     num_letter = password.count(letter)
-    if num_letter < lower_bound or num_letter > upper_bound:
+    if password[lower_index] != letter and password[upper_index] != letter:
+        return False
+    elif password[lower_index] == letter and password[upper_index] == letter:
         return False
     else:
         return True
-
 
 file = open("input","r")
 
