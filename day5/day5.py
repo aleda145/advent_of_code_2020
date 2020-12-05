@@ -39,3 +39,14 @@ for boarding_pass in database:
     # find_column(boarding_pass)
 print(seat_ids)
 print(max(seat_ids))
+
+# find missing seat:
+
+sorted_seats = sorted(seat_ids)
+
+print(sorted_seats)
+
+for idx, seat in enumerate(sorted_seats):
+    if seat + 1 != sorted_seats[idx + 1]:
+        print(seat + 1)
+        break
