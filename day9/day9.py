@@ -48,6 +48,7 @@ def check_if_num_is_valid(number, previous):
         return False
 
 
+# parta 1
 for index, num in enumerate(database):
     if index < preamble_num:
         print(num)
@@ -57,3 +58,36 @@ for index, num in enumerate(database):
             print("found!")
             print(num)
             break
+
+
+# part 2
+# find continous sum of nums that is 21806024 (or 127 for test case)
+# double hashmap? Try brute force first!
+
+
+def count_sum(start_index, database, goal_num):
+    cur_sum = 0
+    for cur_index, num in enumerate(database[start_index:]):
+        cur_sum += num
+        if cur_sum == goal_num:
+            print(cur_sum)
+            print("found!")
+            print("list was:")
+            list_of_nums = database[start_index : cur_index + start_index + 1]
+            print(list_of_nums)
+            print("smallest in list was:")
+            print(min(list_of_nums))
+            print("largest in list was")
+            print(max(list_of_nums))
+            print("summed:")
+            print(min(list_of_nums) + max(list_of_nums))
+            return True
+    return False
+
+
+goal_num = 21806024
+database = list(map(int, database))
+
+for index, starting_num in enumerate(database):
+    if count_sum(index, database, goal_num):
+        break
