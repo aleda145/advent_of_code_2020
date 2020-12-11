@@ -73,3 +73,47 @@ print("num_threes")
 print(num_threes)
 print("answer:")
 print(num_threes * num_ones)
+
+
+# part 2
+
+adapter_dict = {}
+for index, adapter in enumerate(jolt_list):
+    if index < len(jolt_list) - 1:
+        print(f"current adapter: {adapter}")
+        next_three_adapters = jolt_list[index + 1 : index + 4]
+        print(f"next three: {next_three_adapters}")
+        num_next_possible_adapters = 0
+        for next_adapter in next_three_adapters:
+            if next_adapter in [adapter + 1, adapter + 2, adapter + 3]:
+                num_next_possible_adapters += 1
+        print(f"can fit in {num_next_possible_adapters} of those")
+        adapter_dict[adapter] = num_next_possible_adapters
+
+print(adapter_dict)
+
+from collections import defaultdict
+
+links = defaultdict(list)
+link_num = 0
+for key, value in adapter_dict.items():
+    print(f"{key}, {value}")
+    links[link_num].append(value)
+    if value == 1:
+        link_num += 1
+        print("link ends")
+
+multiplication_list = []
+import math
+
+for key, value in links.items():
+    print(f"{key}, {value}")
+    if math.prod(value) == 6:  # 3*2*1 = 6
+        multiplication_list.append(4)
+    elif math.prod(value) == 18:  # 3*3*2 = 18
+        multiplication_list.append(7)
+    elif math.prod(value) == 2:  # 2*1 = 2
+        multiplication_list.append(2)
+
+print("answer:")
+print(math.prod(multiplication_list))
