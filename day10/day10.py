@@ -108,12 +108,10 @@ import math
 
 for key, value in links.items():
     print(f"{key}, {value}")
-    if math.prod(value) == 6:  # 3*2*1 = 6
-        multiplication_list.append(4)
-    elif math.prod(value) == 18:  # 3*3*2 = 18
+    if len(value) < 4:
+        multiplication_list.append(2 ** (len(value) - 1))
+    elif len(value) == 4:
         multiplication_list.append(7)
-    elif math.prod(value) == 2:  # 2*1 = 2
-        multiplication_list.append(2)
 
 print("answer:")
 print(math.prod(multiplication_list))
