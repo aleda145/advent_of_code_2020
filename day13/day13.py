@@ -52,7 +52,9 @@ print(bus_timestamp)
 
 # find nums that make a remainder 1 for each:
 import math
+import time
 
+start = time.time()
 bus_what_to_mod = {}
 result_dict = {}
 for key_to_check, value_to_check in bus_timestamp.items():
@@ -80,3 +82,5 @@ for key, value in bus_timestamp.items():
     what_to_mod = what_to_mod * key
 
 print(result_sum % what_to_mod)
+end = time.time()
+print(f"took: {end - start}s")
