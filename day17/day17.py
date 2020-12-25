@@ -9,16 +9,19 @@ def get_neighbors(pos):
     x = int(pos[0])
     y = int(pos[1])
     z = int(pos[2])
+    w = int(pos[3])
     possible_x = [x - 1, x, x + 1]
     possible_y = [y - 1, y, y + 1]
     possible_z = [z - 1, z, z + 1]
+    possible_w = [w - 1, w, w + 1]
     neighbors = []
     for pos_x in possible_x:
         for pos_y in possible_y:
             for pos_z in possible_z:
-                if pos_x != x or pos_y != y or pos_z != z:
-                    # dont add itself
-                    neighbors.append([pos_x, pos_y, pos_z])
+                for pos_w in possible_w:
+                    if pos_x != x or pos_y != y or pos_z != z or pos_w != w:
+                        # dont add itself
+                        neighbors.append([pos_x, pos_y, pos_z, pos_w])
 
     return neighbors
 
@@ -29,15 +32,20 @@ def print_grid(the_grid):
         keys.append(eval(key))
     from operator import itemgetter
 
-    keys = sorted(keys, key=itemgetter(2, 1, 0))
+    keys = sorted(keys, key=itemgetter(3, 2, 1, 0))
+    cur_w = keys[0][3]
     cur_z = keys[0][2]
     cur_y = [keys[0][1]]
     print(f"z={cur_z}")
+    print(f"w={cur_w}")
     for key in keys:
+        if cur_w != key[3]:
+            cur_w = key[3]
         if cur_z != key[2]:
             print("\n")
             cur_z = key[2]
             print(f"z={cur_z}")
+            print(f"w={cur_w}")
         if cur_y != key[1]:
             print("")
             cur_y = key[1]
@@ -62,10 +70,11 @@ cycle = 0
 
 print(database)
 start_z = 0
+start_w = 0
 for y_idx, row in enumerate(database):
     for x_idx, col in enumerate(row):
         print(col)
-        grid[str([x_idx, y_idx, start_z])] = col
+        grid[str([x_idx, y_idx, start_z, start_w])] = col
 
 
 for i in range(0, 6):  # just do 6 cycles
